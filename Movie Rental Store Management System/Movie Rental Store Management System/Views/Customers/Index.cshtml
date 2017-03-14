@@ -1,8 +1,30 @@
-﻿
+﻿@model List< Movie_Rental_Store_Management_System.Models.Customer>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Customers List </h2>
+<br />
+<br />
+<table class="table table-bordered table-responsive" >
+    <thead>
+        <th>Customers Name</th>
+        <th>Membership Types</th>
+    <th>Delete</th>
+        
+    </thead>
+    <tbody>
+        @foreach(var customer in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(@customer.Name, "Edit", "Customers", new { id=@customer.Id},null)</td>
+        <td>@customer.MembershipType.Name</td>
+                <td>@Html.ActionLink("Delete", "Delete", "Customers", new { id=@customer.Id},null)</td>
+            </tr>
+            
+        }
+    </tbody>
+
+</table>
 

@@ -1,16 +1,38 @@
-﻿
+﻿@model Movie_Rental_Store_Management_System.ViewModel.ViewModel_CustomersMembershipType
 @{
     ViewBag.Title = "CreateCustomer";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>CreateCustomer</h2>
+<h2>Custoemrs List</h2>
 
 @using (@Html.BeginForm("AddCustomer","Customers"))
 {
     <div class="form-group">
-      <h1>Customers</h1>
+      @Html.LabelFor(m=>m.Customer.Name)
+        @Html.TextBoxFor(m => m.Customer.Name, new { @class="form-control"})
+        @Html.ValidationMessageFor(m=>m.Customer.Name)
+
     </div>
-    
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.DateOfBirth)
+        @Html.TextBoxFor(m => m.Customer.DateOfBirth,"{0:d MMM yyyy}", new { @class = "form-control" })
+    @Html.ValidationMessageFor(m=>m.Customer.DateOfBirth)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.IsSubscribedToNewsLetter)
+        @Html.CheckBoxFor(m => m.Customer.IsSubscribedToNewsLetter)
+       
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Customer.MembershipTypeId)
+        @Html.DropDownListFor(m => m.Customer.MembershipTypeId,new SelectList(Model.MembershipTypes,"Id","Name"),"Select Membership Types", new { @class = "form-control" })
+    @Html.ValidationMessageFor(m=>m.Customer.MembershipTypeId)
+    </div>
+    @Html.HiddenFor(m=>m.Customer.Id)
+    <button class="btn btn-primary" type="submit">Save</button>
 }
 

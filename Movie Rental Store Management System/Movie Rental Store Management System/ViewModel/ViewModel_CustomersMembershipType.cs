@@ -8,13 +8,13 @@ namespace Movie_Rental_Store_Management_System.ViewModel
 {
     public class ViewModel_CustomersMembershipType
     {
-        public Customer Customers { get; set; }
-        public MembershipType MembershipTypes { get; set; }
+        public Customer Customer { get; set; }
+        public List<MembershipType> MembershipTypes { get; set; }
         public string Title
         {
             get
             {
-                if (Customers.Id == 0 )
+                if (Customer.Id == 0 )
                     return "New Customers";
                 else
                     return "Edit Customers";

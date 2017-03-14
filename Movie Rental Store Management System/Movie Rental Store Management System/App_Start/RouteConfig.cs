@@ -12,6 +12,7 @@ namespace Movie_Rental_Store_Management_System
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapMvcAttributeRoutes();
 
             routes.MapRoute(
                 name: "Default",
