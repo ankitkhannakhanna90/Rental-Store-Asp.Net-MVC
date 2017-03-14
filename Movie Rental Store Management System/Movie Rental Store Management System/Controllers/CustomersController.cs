@@ -13,5 +13,9 @@ namespace Movie_Rental_Store_Management_System.Controllers
         {
             return View();
         }
+        public ActionResult CreateCustomer()
+        {  
+            return View();
+        }
     }
 }
