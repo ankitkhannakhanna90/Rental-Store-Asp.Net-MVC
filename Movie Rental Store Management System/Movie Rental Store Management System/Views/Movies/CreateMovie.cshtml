@@ -1,0 +1,35 @@
+﻿@model Movie_Rental_Store_Management_System.ViewModel.ViewModel_MoviesGenres
+@{
+    ViewBag.Title = "CreateMovie";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>CreateMovie</h2>
+@using(@Html.BeginForm("AddMovie","Movies"))
+{
+  <div class="form-group">
+      @Html.LabelFor(m=>m.Movie.Name)
+      @Html.TextBoxFor(m => m.Movie.Name, new { @class="form-control"})
+  </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.ReleaseDate)
+        @Html.TextBoxFor(m => m.Movie.ReleaseDate,"{0:d MMM yyyy}", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.DateAdded)
+        @Html.TextBoxFor(m => m.Movie.DateAdded,"{0:d MMM yyyy}", new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.Stock)
+        @Html.TextBoxFor(m => m.Movie.Stock, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Movie.GenreId)
+        @Html.DropDownListFor(m => m.Movie.GenreId, new SelectList(Model.Genre, "Id", "Name"), "Select Genre", new { @class="form-control"})
+    </div>
+    @Html.HiddenFor(m=>m.Movie.Id)
+    <button class="btn btn-primary" type="submit">Save</button>
+
+
+}
+

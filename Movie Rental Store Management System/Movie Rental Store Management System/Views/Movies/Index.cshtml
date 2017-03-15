@@ -1,0 +1,30 @@
+﻿@model List<Movie_Rental_Store_Management_System.Models.Movie>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Movies</h2>
+<table class="table table-bordered table-responsive" >
+    <thead>
+    <th>
+        Movie
+    </th>
+            <th>Genre</th>
+    <th>Delete</th>
+        
+    </thead>
+    <tbody>
+        @foreach(var movie in Model)
+        {
+            <tr>
+                <td>@Html.ActionLink(@movie.Name, "Edit", "Movies", new {@movie.Id },null)</td>
+                <td>@movie.Genre.Name</td>
+                <td>@Html.ActionLink("Delete", "Delete", "Movies", new { @movie.Id},null)</td>
+            </tr>
+        }
+
+    </tbody>
+
+</table>
+
