@@ -14,7 +14,7 @@ namespace Movie_Rental_Store_Management_System.ViewModel
         {
             get
             {
-                if (Customer.Id == 0 )
+                if (Customer==null )
                     return "New Customers";
                 else
                     return "Edit Customers";
