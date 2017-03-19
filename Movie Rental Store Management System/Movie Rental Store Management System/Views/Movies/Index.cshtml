@@ -5,7 +5,12 @@
 }
 
 <h2>Movies</h2>
-<table class="table table-bordered table-responsive" >
+<br />
+<div class="top-right">
+@Html.ActionLink("Add Movie", "CreateMovie", "Movies", new { @class="btn btn-primary top-right"})
+</div>
+<br />
+<table class="table table-bordered table-responsive" id="movies">
     <thead>
     <th>
         Movie
@@ -27,4 +32,17 @@
     </tbody>
 
 </table>
+@section scripts{
+    <script>
+
+        $(document).ready(
+            function () {
+                $("#movies").DataTable();
+            }
+
+            );
+
+    </script>
+
+}
 

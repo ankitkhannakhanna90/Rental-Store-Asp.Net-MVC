@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>CreateMovie</h2>
+<h2>@Model.Title</h2>
 @using(@Html.BeginForm("AddMovie","Movies"))
 {
   <div class="form-group">

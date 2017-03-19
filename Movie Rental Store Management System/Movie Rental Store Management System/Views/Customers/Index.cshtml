@@ -6,8 +6,11 @@
 
 <h2>Customers List </h2>
 <br />
+<div class="top-right">
+    @Html.ActionLink("Add Customer", "CreateCustomer", "Customers", new { @class="btn btn-primary"})
+</div>
 <br />
-<table class="table table-bordered table-responsive" >
+<table class="table table-bordered table-responsive " id="customers"  >
     <thead>
         <th>Customers Name</th>
         <th>Membership Types</th>
@@ -20,11 +23,58 @@
             <tr>
                 <td>@Html.ActionLink(@customer.Name, "Edit", "Customers", new { id=@customer.Id},null)</td>
         <td>@customer.MembershipType.Name</td>
-                <td>@Html.ActionLink("Delete", "Delete", "Customers", new { id=@customer.Id},null)</td>
-            </tr>
+                <td>@Html.ActionLink("Delete", "Delete", "Customers", new { id = @customer.Id}, null)</td>
+        @*<td><button class="btn btn-primary js-delete" data-customer-id="@customer.Id">Delete</button></td>*@    
+        </tr>}
             
-        }
+        
     </tbody>
 
 </table>
+@section scripts{
+    <script>
+    $(document).ready(function(){
+    $("#customers").DataTable();
+    
+    });
+    
+    
+    
+    </script>
+    
+    }
+@*
+@section scripts
+{
+    <script>
+        $(document).ready(
+function () {
+    $("#customers").on("click", "js-delete", function () {
 
+
+        bootbox.confirm("Are You Sure You Want To Delete This Customer", function (result) {
+            if (result) {
+                $.ajax({
+                    url: "/Customers/Edit/" + $(this).attr("data-customer-id"),
+                   
+                    success:function(){
+                    console.log("Success");
+                }
+
+                });
+
+            }
+        });
+    }
+
+);
+});
+
+
+    </script>
+    
+
+
+
+
+}*@

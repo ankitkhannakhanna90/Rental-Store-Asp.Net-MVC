@@ -19,6 +19,7 @@ namespace Movie_Rental_Store_Management_System.Models
         [Display(Name="Wanna Subscribe To News Letter")]
         public bool IsSubscribedToNewsLetter { get; set; }
         public MembershipType MembershipType { get; set; }
+        [Display(Name="Membership Type")]
         public int MembershipTypeId { get; set; }
     
     
