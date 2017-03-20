@@ -6,12 +6,15 @@
 
 <h2>Customers List </h2>
 <br />
-
+<div class="top-right">
+    @Html.ActionLink("Add Customer", "CreateCustomer", "Customers", new { @class="btn btn-primary"})
+</div>
+<br />
 <table class="table table-bordered table-responsive " id="customers"  >
     <thead>
         <th>Customers Name</th>
         <th>Membership Types</th>
-    
+    <th>Delete</th>
         
     </thead>
     <tbody>
@@ -20,7 +23,7 @@
             <tr>
                 <td>@Html.ActionLink(@customer.Name, "Edit", "Customers", new { id=@customer.Id},null)</td>
         <td>@customer.MembershipType.Name</td>
-                
+                <td>@Html.ActionLink("Delete", "Delete", "Customers", new { id = @customer.Id}, null)</td>
         @*<td><button class="btn btn-primary js-delete" data-customer-id="@customer.Id">Delete</button></td>*@    
         </tr>}
             

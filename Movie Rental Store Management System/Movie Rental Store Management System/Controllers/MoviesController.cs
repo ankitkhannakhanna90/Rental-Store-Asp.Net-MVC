@@ -23,10 +23,14 @@ namespace Movie_Rental_Store_Management_System.Controllers
         // GET: Movies
         [Route("Movies")]
         public ActionResult Index()
-        {
+        { 
             var movie = _context.Movies.Include(c => c.Genre).ToList();
-            return View(movie);
+            if (!User.IsInRole("SuperAdmin"))
+                return View("Index", movie);
+            else
+                return View("(Master1)Index", movie);
         }
+        [Authorize(Roles="SuperAdmin")]
         public ActionResult CreateMovie()
         {
             var viewmodel = new ViewModel_MoviesGenres()

@@ -6,17 +6,14 @@
 
 <h2>Movies</h2>
 <br />
-<div class="top-right">
-@Html.ActionLink("Add Movie", "CreateMovie", "Movies", new { @class="btn btn-primary top-right"})
-</div>
-<br />
+
 <table class="table table-bordered table-responsive" id="movies">
     <thead>
     <th>
         Movie
     </th>
             <th>Genre</th>
-    <th>Delete</th>
+    
         
     </thead>
     <tbody>
@@ -25,7 +22,7 @@
             <tr>
                 <td>@Html.ActionLink(@movie.Name, "Edit", "Movies", new {@movie.Id },null)</td>
                 <td>@movie.Genre.Name</td>
-                <td>@Html.ActionLink("Delete", "Delete", "Movies", new { @movie.Id},null)</td>
+               
             </tr>
         }
 

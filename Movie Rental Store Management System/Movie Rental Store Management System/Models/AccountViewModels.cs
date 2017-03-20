@@ -52,7 +52,9 @@ namespace Movie_Rental_Store_Management_System.Models
     }
 
     public class RegisterViewModel
-    {
+    {    [Required]
+        [Display(Name="Name")]
+        public string Name { get; set; }
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]

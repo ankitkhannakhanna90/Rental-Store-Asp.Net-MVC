@@ -14,7 +14,7 @@ using Movie_Rental_Store_Management_System.Models;
 
 namespace Movie_Rental_Store_Management_System.Controllers
 {
-    [Authorize]
+    [Authorize, System.Runtime.InteropServices.GuidAttribute("F226FAF1-7164-48F5-B7F1-E8E4FB677FD9")]
     public class AccountController : Controller
     {
         private ApplicationUserManager _userManager;
@@ -90,10 +90,18 @@ namespace Movie_Rental_Store_Management_System.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email ,Name=model.Name};
                 IdentityResult result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    
+                    
+                    // ROLE TO CANCHANGEMOVIES
+                    var rolestore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                    var rolemanager = new RoleManager<IdentityRole>(rolestore);
+                    await rolemanager.CreateAsync(new IdentityRole("SuperAdmin"));
+                    await UserManager.AddToRoleAsync(user.Id, "SuperAdmin");
+                     
                     await SignInAsync(user, isPersistent: false);
 
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771

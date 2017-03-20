@@ -189,6 +189,18 @@
     <Compile Include="Migrations\201703160528276_ChangeInDatabase.Designer.cs">
       <DependentUpon>201703160528276_ChangeInDatabase.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201703200759156_ChangesInRegister.cs" />
+    <Compile Include="Migrations\201703200759156_ChangesInRegister.Designer.cs">
+      <DependentUpon>201703200759156_ChangesInRegister.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703200801348_ChangeInDatabase1.cs" />
+    <Compile Include="Migrations\201703200801348_ChangeInDatabase1.Designer.cs">
+      <DependentUpon>201703200801348_ChangeInDatabase1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201703201013186_SeedSuperAdmin.cs" />
+    <Compile Include="Migrations\201703201013186_SeedSuperAdmin.Designer.cs">
+      <DependentUpon>201703201013186_SeedSuperAdmin.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -437,7 +449,9 @@
     <Content Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\Customers\CreateCustomer.cshtml" />
     <Content Include="Views\Movies\CreateMovie.cshtml" />
+    <Content Include="Views\Movies\%28Master1%29Index.cshtml" />
     <Content Include="Views\Movies\Index.cshtml" />
+    <Content Include="Views\Customers\%28Master1%29Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -468,6 +482,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201703160528276_ChangeInDatabase.resx">
       <DependentUpon>201703160528276_ChangeInDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703200759156_ChangesInRegister.resx">
+      <DependentUpon>201703200759156_ChangesInRegister.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703200801348_ChangeInDatabase1.resx">
+      <DependentUpon>201703200801348_ChangeInDatabase1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201703201013186_SeedSuperAdmin.resx">
+      <DependentUpon>201703201013186_SeedSuperAdmin.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
