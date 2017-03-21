@@ -78,7 +78,15 @@ namespace Movie_Rental_Store_Management_System.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            return View();
+            var mastertype = new List<string>()
+        {
+            "Admin","CanChangeMovies"
+        };
+            var viewmodel = new RegisterViewModel()
+            {MasterType=mastertype
+
+            };
+            return View(viewmodel);
         }
 
         //
@@ -90,31 +98,75 @@ namespace Movie_Rental_Store_Management_System.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = model.Email, Email = model.Email ,Name=model.Name};
-                IdentityResult result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                if (!User.IsInRole("SuperAdmin"))
                 {
-                    
-                    
-                    // ROLE TO CANCHANGEMOVIES
-                    var rolestore = new RoleStore<IdentityRole>(new ApplicationDbContext());
-                    var rolemanager = new RoleManager<IdentityRole>(rolestore);
-                    await rolemanager.CreateAsync(new IdentityRole("SuperAdmin"));
-                    await UserManager.AddToRoleAsync(user.Id, "SuperAdmin");
-                     
-                    await SignInAsync(user, isPersistent: false);
+                    var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, Name = model.Name };
+                    IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
 
-                    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                    // Send an email with this link
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
 
-                    return RedirectToAction("Index", "Home");
+                        // ROLE TO CANCHANGEMOVIES
+                        /* var rolestore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                         var rolemanager = new RoleManager<IdentityRole>(rolestore);
+                         await rolemanager.CreateAsync(new IdentityRole("SuperAdmin"));
+                         await UserManager.AddToRoleAsync(user.Id, "SuperAdmin");
+                          */
+                        await SignInAsync(user, isPersistent: false);
+
+                        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
+                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        AddErrors(result);
+                    }
                 }
                 else
                 {
-                    AddErrors(result);
+                    var user = new ApplicationUser() { UserName = model.Email, Email = model.Email, Name = model.Name };
+                    IdentityResult result = await UserManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
+                        if (model.MasterType.Contains("Admin"))
+                        {
+                            var rolestore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                            var rolemanager = new RoleManager<IdentityRole>(rolestore);
+                            await rolemanager.CreateAsync(new IdentityRole("Admin"));
+                            await UserManager.AddToRoleAsync(user.Id, "Admin");
+                        }
+                        else
+                        {
+                            var rolestore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                            var rolemanager = new RoleManager<IdentityRole>(rolestore);
+                            await rolemanager.CreateAsync(new IdentityRole("CanChangeMovies"));
+                            await UserManager.AddToRoleAsync(user.Id, "CanChangeMovies");
+                        }
+                        // ROLE TO CANCHANGEMOVIES
+                        /* var rolestore = new RoleStore<IdentityRole>(new ApplicationDbContext());
+                         var rolemanager = new RoleManager<IdentityRole>(rolestore);
+                         await rolemanager.CreateAsync(new IdentityRole("SuperAdmin"));
+                         await UserManager.AddToRoleAsync(user.Id, "SuperAdmin");
+                          */
+                        await SignInAsync(user, isPersistent: false);
+
+                        // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
+                        // Send an email with this link
+                        // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                        // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                        // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
+
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        AddErrors(result);
+                    }
                 }
             }
 

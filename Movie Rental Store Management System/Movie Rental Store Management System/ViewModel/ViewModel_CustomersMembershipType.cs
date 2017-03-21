@@ -9,6 +9,7 @@ namespace Movie_Rental_Store_Management_System.ViewModel
     public class ViewModel_CustomersMembershipType
     {
         public Customer Customer { get; set; }
+       
         public List<MembershipType> MembershipTypes { get; set; }
         public string Title
         {

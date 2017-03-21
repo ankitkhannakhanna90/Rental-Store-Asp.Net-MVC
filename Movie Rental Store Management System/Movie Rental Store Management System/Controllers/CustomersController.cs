@@ -26,13 +26,13 @@ namespace Movie_Rental_Store_Management_System.Controllers
         public ActionResult Index()
         {
             var customer = _Context.Customers.Include(c => c.MembershipType).ToList();
-            if (!User.IsInRole("SuperAdmin"))
+            if (!User.IsInRole("SuperAdmin")&&!User.IsInRole("Admin"))
                 return View("Index",customer);
             else 
                 return View("(Master1)Index",customer);
         }
         [Route("Customers/CreateCustomer")]
-        [Authorize(Roles="SuperAdmin")]
+        [Authorize(Roles="SuperAdmin,Admin")]
         public ActionResult CreateCustomer()
         {
             var viewmodel = new ViewModel_CustomersMembershipType()

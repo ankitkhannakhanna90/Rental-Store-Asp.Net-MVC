@@ -25,12 +25,13 @@ namespace Movie_Rental_Store_Management_System.Controllers
         public ActionResult Index()
         { 
             var movie = _context.Movies.Include(c => c.Genre).ToList();
-            if (!User.IsInRole("SuperAdmin"))
+            if (!User.IsInRole("SuperAdmin")&&!User.IsInRole("Admin")&&!User.IsInRole("CanChangeMovies"))
                 return View("Index", movie);
             else
                 return View("(Master1)Index", movie);
         }
-        [Authorize(Roles="SuperAdmin")]
+        [Authorize(Roles="SuperAdmin,Admin,CanChangeMovies")]
+        
         public ActionResult CreateMovie()
         {
             var viewmodel = new ViewModel_MoviesGenres()

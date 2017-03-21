@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System;
+using System.Collections.Generic;
 
 namespace Movie_Rental_Store_Management_System.Models
 {
@@ -70,6 +72,9 @@ namespace Movie_Rental_Store_Management_System.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+        [Display(Name="Master Type")]
+        public  List<string> MasterType { get; set; }
+        
     }
 
     public class ResetPasswordViewModel
