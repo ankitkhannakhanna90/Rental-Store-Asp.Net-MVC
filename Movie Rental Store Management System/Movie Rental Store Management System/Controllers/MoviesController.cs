@@ -92,6 +92,17 @@ namespace Movie_Rental_Store_Management_System.Controllers
             return RedirectToAction("Index", "Movies");
 
         }
+        public JsonResult GetMoviesData(string query = null)
+        {
+            var moviequery = _context.Movies.Include(c => c.Genre);
+            if (!string.IsNullOrWhiteSpace(query))
+                moviequery = moviequery.Where(c => c.Name.Contains(query));
+
+
+            var movies = moviequery.ToList();
+            return Json(movies, JsonRequestBehavior.AllowGet);
+
+        }
         
     }
 }

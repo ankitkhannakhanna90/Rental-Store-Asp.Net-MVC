@@ -1,0 +1,172 @@
+﻿@*@model Movie_Rental_Store_Management_System.Models.NewRental*@
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New Rental Form</h2>
+
+
+    
+    @*<div class="form-horizontal">
+        <h4>NewRental</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.CustomerId, "CustomerId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextBoxFor(m=>m.CustomerId)
+                @Html.ValidationMessageFor(model => model.CustomerId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MovieId, "MovieId", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("MovieId", null, htmlAttributes: new { @class = "form-control" })
+       @Html.TextBoxFor(m=>m.MovieId)
+                         @Html.ValidationMessageFor(model => model.MovieId, "", new { @class = "text-danger" })
+            </div>
+        </div>*@
+</br>
+<form id="NewRental">
+    <div class="form-group">
+       <label >Customer's Name</label>
+        <br /> </br>
+        <input type="text" id="customer" required placeholder="Existing Customer Name only " class="form-control form-group"/>
+    </div>
+    <div class="form-group">
+        <label >Movies Name</label>
+        <br /></br>
+        <input type="text" id="movie" class="form-control form-group"required value=""placeholder="Existing Movie Name Only" />
+    </div>
+        
+    
+<div class="row">
+    <div class="col-md-4 col-sm-4"><ul class="list-group" id="movies" ></ul>    
+    </div>
+    </div>
+    <div class="form-group">
+            @*<div class="col-md-offset-2 col-md-10">*@
+                <button type="submit" class="btn btn-primary">Save</button>
+            </div>
+        @*</div>*@
+    
+</form>
+
+@section scripts{
+@Scripts.Render("~/bundles/jqueryval")
+    <script>
+        var vm = {
+            movieIds:[]
+        }
+        var customers = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('Name'),
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            //prefetch: '../data/films/post_1960.json',
+            remote: {
+                url: '/Customers/GetCustomersData?query=%QUERY',
+                wildcard: '%QUERY'
+            }
+        });
+
+        $('#customer').typeahead({minLength:3,
+        highlight:true
+        }, {
+            name: 'customers',
+            display: 'Name',
+            source: customers
+        }).on("typeahead:select", function (e, customer) {
+            //alert("check1");
+            vm.customerId = customer.Id;
+            //alert(vm.customerId);
+           // alert(customer.Id);
+        });
+
+        var movies = new Bloodhound({
+            datumTokenizer: Bloodhound.tokenizers.obj.whitespace('Name'),
+            queryTokenizer: Bloodhound.tokenizers.whitespace,
+            //prefetch: '../data/films/post_1960.json',
+            remote: {
+                url: '/Movies/GetMoviesData?query=%QUERY',
+                wildcard: '%QUERY'
+            }
+        });
+
+        $('#movie').typeahead({
+            minLength: 2,
+            highlight: true
+        }, {
+            name: 'movies',
+            display: 'Name',
+            source: movies
+        }).on("typeahead:select", function (e, movie) {
+            
+            $('#movies').append("<li class='list-group-item list-style: none'>" + movie.Name + "<li>");
+            $("#movie").typeahead("val", "");
+           // alert("Check2");
+            vm.movieIds.push(movie.Id);
+           // alert(vm.movieIds);
+            //alert(vm);
+           // alert(movies.id);
+        });
+        //$("#NewRental").validate({
+        //    submitHandler: function () {
+
+        //        e.preventDefault();
+        //            //alert("Ajax");
+        //            $.ajax({
+        //                 url: "/NewRentals/AddRentalForm",
+        //                contentType: "application/json; charset=utf-8",
+        //                dataType: "json",
+        //                method: "post",
+        //                data: JSON.stringify(vm),
+        //                success: function (data) {
+        //              //      alert("TIck");
+        //                    alert(data.success);
+        //                    toastr.success("Rental Form Successfully Added");
+        //                },
+        //                error: function () {
+        //                //    alert("Wrong");
+        //                    alert('error');
+        //                    toastr.error("Rental Form Not Added");
+        //                }
+            
+        //                 });
+
+        //    }
+        //});
+        $("#NewRental").validate();
+        $("#NewRental").submit(function (e) {
+            e.preventDefault();
+            //alert("Ajax");
+            $.ajax({
+                url: "/NewRentals/AddRentalForm",
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                method: "post",
+                data: JSON.stringify(vm),
+                success: function (data) {
+                    //    alert("TIck");
+                    alert(data.success);
+                    toastr.success("Rental Form Successfully Added");
+                    $("#customer").typeahead("val", "");
+                    $("#movie").typeahead("val", "");
+                    setTimeout(location.reload.bind(location), 2000);
+                    
+                },
+                error: function () {
+                    //    alert("Wrong");
+                    alert('error');
+                    toastr.error("Rental Form Not Added");
+                }
+
+            });
+
+        });
+
+    </script>
+
+
+}

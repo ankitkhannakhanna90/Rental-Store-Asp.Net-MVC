@@ -11,7 +11,9 @@ namespace Movie_Rental_Store_Management_System
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                         "~/Scripts/jquery-{version}.js",
                         "~/Scripts/DataTables/jquery.dataTables.js",
-                        "~/Scripts/DataTables/dataTables.bootstrap.js"
+                        "~/Scripts/DataTables/dataTables.bootstrap.js",
+                        "~/Scripts/typeahead.bundle.js",
+                        "~/Scripts/toastr.js"
                         ));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
@@ -28,9 +30,12 @@ namespace Movie_Rental_Store_Management_System
                       "~/Scripts/respond.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
+                      "~/Content/bootstrap-united.css",
                       "~/Content/DataTables/css/dataTables.bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/site.css",
+                      "~/Content/Typeahead.css",
+                      "~/Content/toastr.css"
+                      ));
 
             // Set EnableOptimizations to false for debugging. For more information,
             // visit http://go.microsoft.com/fwlink/?LinkId=301862

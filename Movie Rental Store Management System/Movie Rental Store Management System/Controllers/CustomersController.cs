@@ -95,6 +95,19 @@ namespace Movie_Rental_Store_Management_System.Controllers
             _Context.SaveChanges();
             return RedirectToAction("Index", "Customers");
         }
+        
+        public JsonResult GetCustomersData(string query=null)
+        {
+            var customerquery = _Context.Customers.Include(c=>c.MembershipType);
+            if (!string.IsNullOrWhiteSpace(query))
+                customerquery = customerquery.Where(c => c.Name.Contains(query));
+
+            var customer = customerquery.ToList();
+
+            return Json(customer, JsonRequestBehavior.AllowGet);
+            //return customer;
+
+        }
 
     }
 }
