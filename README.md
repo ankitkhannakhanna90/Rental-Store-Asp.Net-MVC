@@ -1,7 +1,12 @@
 # Rental-Store-Asp.Net-MVC
-Movie rental Store Management System using Asp.net MVC 
+It is A Movie rental Store Management System which is developed Using Asp.net MVC. This Web Application Performs basic CRUD operations like adding a Customer,Deleting Customer,Updating And Viewing Details and its same goes for Movies.
+To Improve Look And Feel of Web Application 
+-Bootstrap is used.
+-Jqyery plugins like DataTable and Twitter-Typeahead.
+-toastr Notifications.
 
-Roles 
+
+#Roles
 
 Superadmin - Responsible for creating other roles and can access all the Actions.
 EmailId - superadmin@gmail.com
