@@ -91,7 +91,12 @@ namespace Movie_Rental_Store_Management_System.Controllers
         public ActionResult Delete(int id)
         {
             var customer = _Context.Customers.SingleOrDefault(c => c.Id == id);
+            var rentaldata = _Context.NewRentals.Where(c => c.Customer.Id == id);
+            foreach(var rent in rentaldata)
+            _Context.NewRentals.Remove(rent);
+            _Context.SaveChanges();
             _Context.Customers.Remove(customer);
+            
             _Context.SaveChanges();
             return RedirectToAction("Index", "Customers");
         }

@@ -25,10 +25,9 @@ namespace Movie_Rental_Store_Management_System.Controllers
         public ActionResult Index()
         { 
             var movie = _context.Movies.Include(c => c.Genre).ToList();
-            if (!User.IsInRole("SuperAdmin")&&!User.IsInRole("Admin")&&!User.IsInRole("CanChangeMovies"))
+           
                 return View("Index", movie);
-            else
-                return View("(Master1)Index", movie);
+           
         }
         [Authorize(Roles="SuperAdmin,Admin,CanChangeMovies")]
         
@@ -87,6 +86,12 @@ namespace Movie_Rental_Store_Management_System.Controllers
         public ActionResult Delete(int id)
         {
             var movie = _context.Movies.SingleOrDefault(c => c.Id == id);
+            var rentaldata = _context.NewRentals.Where(c => c.Movie.Id == id);
+            foreach (var rent in rentaldata)
+            {
+                _context.NewRentals.Remove(rent);
+            }
+                _context.SaveChanges();
             _context.Movies.Remove(movie);
             _context.SaveChanges();
             return RedirectToAction("Index", "Movies");
